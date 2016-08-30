@@ -1,14 +1,14 @@
 # Build GCC image
 #
 # Usage:
-# 	make (container|push|push-tag)
+# 	make [VERSION=] [TAG=] (container|push|push-tag)
 
 default: container
 
 
 NAME=quay.io/instrumentisto/gcc
 ifndef VERSION
-  VERSION=6.1.1
+  VERSION=6.2.0
 endif
 ifndef TAG
   TAG=latest
