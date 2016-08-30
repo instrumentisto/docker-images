@@ -1,18 +1,23 @@
 # Build GCC image
 #
 # Usage:
-# 	make [VERSION=] [TAG=] (container|push|push-tag)
+# 	make [VERSION=...] [TAGS=tag1,tag2,...] (container|push|push-tags)
 
 default: container
 
 
-NAME=quay.io/instrumentisto/gcc
+NAME = quay.io/instrumentisto/gcc
 ifndef VERSION
-  VERSION=6.2.0
+  VERSION = 6.2.0
 endif
-ifndef TAG
-  TAG=latest
+ifndef TAGS
+  TAGS = latest
 endif
+
+comma:= ,
+empty:=
+space:= $(empty) $(empty)
+tags := $(subst $(comma), $(space), $(TAGS))
 
 container:
 	docker build -t $(NAME):$(VERSION) ./$(VERSION)/
@@ -20,6 +25,8 @@ container:
 push: container
 	docker push $(NAME):$(VERSION)
 
-push-tag:
-	docker tag $(NAME):$(VERSION) $(NAME):$(TAG)
-	docker push $(NAME):$(TAG)
+push-tags:
+	$(foreach tag, $(tags), \
+		docker tag $(NAME):$(VERSION) $(NAME):$(tag); \
+		docker push $(NAME):$(tag); \
+	)
