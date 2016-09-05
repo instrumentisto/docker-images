@@ -14,6 +14,20 @@ Docker image for compiling C/C++ applications on Alpine Linux.
 
 
 
+## Purpose
+
+Alpine Linux has different `libc` than other common distros.  
+So, if we compile some application with
+[official GCC Docker image](https://hub.docker.com/_/gcc) (Debian based),
+with a high probability it won't run on Alpine Linux.
+
+*For Alpine Linux we have to compile things in Alpine Linux.*
+
+That is the purpose if this image. If you need to compile sources for other
+distros, better use [official GCC Docker image](https://hub.docker.com/_/gcc).
+
+
+
 ## Usage
 
 Read about using GCC inside Docker container in
