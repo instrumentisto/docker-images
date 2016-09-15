@@ -1,0 +1,19 @@
+#!/bin/sh
+
+
+HAPROXY_DROPINS_DIR=${HAPROXY_DROPINS_DIR:=/etc/haproxy}
+HAPROXY_CONF_FILE=${HAPROXY_CONF_FILE:=/etc/haproxy.merged.cfg}
+
+
+write_cfg_file() {
+    echo -e "\n\n#\n# $1\n#\n" >> $HAPROXY_CONF_FILE
+    cat $1                     >> $HAPROXY_CONF_FILE
+}
+
+
+write_cfg_file $HAPROXY_DROPINS_DIR/haproxy.cfg
+
+[ ! -d $HAPROXY_DROPINS_DIR/conf.d ] && exit 0
+for f in `find $HAPROXY_DROPINS_DIR/conf.d -type f | sort`; do
+    write_cfg_file $f
+done
