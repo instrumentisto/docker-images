@@ -40,8 +40,8 @@ push-tags:
 all: | container push push-tags
 
 everything:
-	make all VERSION=6.2.1 TAGS=6,6.2,6.2.1,latest
-	make all VERSION=5.3.0 TAGS=5,5.3,5.3.0
+	make all VERSION=5.3.0 TAGS=5,5.3
+	make all VERSION=6.2.1 TAGS=6,6.2,latest
 
 
 .PHONY: container push push-tags all everything
