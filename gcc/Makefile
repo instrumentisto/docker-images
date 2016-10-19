@@ -1,26 +1,31 @@
 # Build GCC image
 #
 # Usage:
-# 	make [VERSION=...] [TAGS=tag1,tag2,...] (container|push|push-tags)
+# 	make (container|push|push-tags) [VERSION=...] [TAGS=tag1,tag2,...] [no-cache=(yes|no)]
+# 	make all [VERSION=...] [TAGS=tag1,tag2,...] [no-cache=(yes|no)]
+# 	make everything [no-cache=(yes|no)]
 
 default: container
 
 
-NAME = quay.io/instrumentisto/gcc
-ifndef VERSION
-  VERSION = 6.2.0
-endif
-ifndef TAGS
-  TAGS = latest
-endif
+NAME := quay.io/instrumentisto/gcc
+VERSION ?= 6.2.1
+TAGS ?= 6,6.2,6.2.1,latest
+no-cache ?= no
 
 comma:= ,
 empty:=
 space:= $(empty) $(empty)
-tags := $(subst $(comma), $(space), $(TAGS))
+eq = $(if $(or $(1),$(2)),$(and $(findstring $(1),$(2)),\
+                                $(findstring $(2),$(1))),1)
+
+tags = $(subst $(comma), $(space), $(TAGS))
+
+no-cache-arg = $(if $(call eq, $(no-cache), yes), --no-cache, $(empty))
+
 
 container:
-	docker build -t $(NAME):$(VERSION) ./$(VERSION)/
+	docker build $(no-cache-arg) -t $(NAME):$(VERSION) ./$(VERSION)/
 
 push: container
 	docker push $(NAME):$(VERSION)
@@ -30,3 +35,13 @@ push-tags:
 		docker tag $(NAME):$(VERSION) $(NAME):$(tag); \
 		docker push $(NAME):$(tag); \
 	)
+
+
+all: | container push push-tags
+
+everything:
+	make all VERSION=6.2.1 TAGS=6,6.2,6.2.1,latest
+	make all VERSION=5.3.0 TAGS=5,5.3,5.3.0
+
+
+.PHONY: container push push-tags all everything
