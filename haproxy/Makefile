@@ -15,7 +15,6 @@ no-cache ?= no
 comma:= ,
 empty:=
 space:= $(empty) $(empty)
-tags := $(subst $(comma), $(space), $(TAGS))
 eq = $(if $(or $(1),$(2)),$(and $(findstring $(1),$(2)),\
                                 $(findstring $(2),$(1))),1)
 
