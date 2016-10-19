@@ -7,8 +7,8 @@ PHP builder image
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/instrumentisto/docker-images/blob/master/php-builder/LICENSE.md)
 [![github](https://img.shields.io/badge/GitHub-repo-blue.svg)](https://github.com/instrumentisto/docker-images/tree/master/php-builder)
 
-- `5.6.26`, `5.6`, `5` ([5.6.26/Dockerfile](https://github.com/instrumentisto/docker-images/blob/master/php-builder/5.6.26/Dockerfile))
-- `7.0.11`, `7.0`, `7`, `latest` ([7.0.11/Dockerfile](https://github.com/instrumentisto/docker-images/blob/master/php-builder/7.0.11/Dockerfile))
+- `5.6.27`, `5.6`, `5` ([5.6.27/Dockerfile](https://github.com/instrumentisto/docker-images/blob/master/php-builder/5.6.27/Dockerfile))
+- `7.0.12`, `7.0`, `7`, `latest` ([7.0.12/Dockerfile](https://github.com/instrumentisto/docker-images/blob/master/php-builder/7.0.12/Dockerfile))
 
 Docker image for building PHP projects.
 
